@@ -25,9 +25,9 @@
         <h3 class="text-muted">My Company</h3>
         <nav>
           <ul class="nav nav-justified">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Administración</a></li>
-            <li><a href="#">Acerca</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Administration</a></li>
+            <li><a href="#">About</a></li>
           </ul>
         </nav>
       </div>
@@ -35,26 +35,28 @@
       <!-- Formulario para la busqueda. El formulario es enviado por POST al BusquedaController -->
       <form method ="post" action="#" class="navbar-form navbar-right">
         <div class="form-group">
-          <input type="text" name="query" required placeholder="Buscar oferta..." class="form-control">
+          <input type="text" name="query" required placeholder="Search offer..." class="form-control">
         </div>
-        <button type="submit" class="btn btn-success">Buscar</button>
+        <button type="submit" class="btn btn-success">Search</button>
       </form>
 
       <!-- Jumbotron -->
       <div class="jumbotron">
-        <h2>¡ENCUENTRA TU TRABAJO IDEAL!</h2>
+        <h2>FIND YOU IDEAL JOB!</h2>
         <!--
-        <h4>ESTAMOS CONTRATANDO</h4>
+        <h4>WE ARE HIRING</h4>
         -->
-        <p class="lead text-justify">Bienvenido a My Company, aquí podrás encontrar ofertas de empleos
-          que sean adecuados a tu perfil, experiencia y ubicación.
-          Es muy fácil de usar, solo haz clic en una vacante, ingresa para ver los detalles y envíanos tu CV en formato
-          PDF o DOCX. Nosotros revisaremos tu CV y posteriormente te contactaremos.<br><br>
+        <p class="lead text-justify">Welcome to My Company, here you can find job offers that
+         match with your profile, experiences and location.
 
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Ver más Ofertas</a></p>
+          it is very easy to use, just click one vacancy, log in to see the details and send us your CVin PDF or DOCX format.
+          We will review your Cv and We will contact you back.
+            <br><br>
+
+        <p><a class="btn btn-lg btn-success" href="#" role="button">See more offers</a></p>
       </div>
 
-      <h1>Ofertas recientes</h1>
+      <h1>Recent Job offers</h1>
 
      <!-- Example row of columns -->
       <div class="row">

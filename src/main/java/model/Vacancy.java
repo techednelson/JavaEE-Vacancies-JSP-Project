@@ -11,8 +11,13 @@ public class Vacancy {
     private String details;
 
     public Vacancy(int id) {
+        this.publishDate = new Date();
         this.id = id;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public Date getPublishDate() { return publishDate; }
 

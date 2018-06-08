@@ -1,4 +1,6 @@
 /home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/model/Vacancy.java
+/home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/dao/VacancyDaoImpl.java
+/home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/dao/VacancyDao.java
 /home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/dao/ConnectDB.java
 /home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/controller/VacancyController.java
 /home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/dao/TestDB.java

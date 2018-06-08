@@ -1,5 +1,7 @@
 model/Person.class
-dao/TestDB.class
-controller/VacancyController.class
+dao/VacancyDaoImpl.class
+dao/VacancyDao.class
 dao/ConnectDB.class
 model/Vacancy.class
+dao/TestDB.class
+controller/VacancyController.class

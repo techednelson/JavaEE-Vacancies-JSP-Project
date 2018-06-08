@@ -48,7 +48,7 @@
           <h3 class="panel-title">Create Vacancy</h3>
         </div>
         <div class="panel-body">
-         <form action="#" method="post">
+         <form action="vacancy" method="post">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" class="form-control" name="name" required id="name" value="" placeholder="Enter the name of the vacancy">
