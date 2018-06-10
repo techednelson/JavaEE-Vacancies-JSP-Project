@@ -35,7 +35,7 @@
         <h3 class="text-muted">My Company - Administration</h3>
         <nav>
           <ul class="nav nav-justified">
-            <li><a href="#">Create vacancy</a></li>
+            <li><a href="#">Add vacancy</a></li>
             <li><a href="#">Vacancies</a></li>
             <li><a href="#">Exit</a></li>
           </ul>

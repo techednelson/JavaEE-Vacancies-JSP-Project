@@ -1,3 +1,4 @@
+controller/siteController.class
 model/Person.class
 dao/VacancyDaoImpl.class
 dao/VacancyDao.class

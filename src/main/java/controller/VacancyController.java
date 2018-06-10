@@ -1,7 +1,11 @@
 package controller;
 
+import dao.ConnectDB;
+import dao.VacancyDao;
+import dao.VacancyDaoImpl;
 import model.Vacancy;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,12 +17,12 @@ import java.io.IOException;
 public class VacancyController extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
 
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String details = request.getParameter("details");
+        String name = req.getParameter("name");
+        String description = req.getParameter("description");
+        String details = req.getParameter("details");
 
         Vacancy vacancy = new Vacancy(0);
         vacancy.setVacancyName(name);
@@ -26,5 +30,23 @@ public class VacancyController extends HttpServlet {
         vacancy.setDetails(details);
 
         System.out.println(vacancy);
+
+        ConnectDB conn = new ConnectDB();
+        VacancyDao vacancyDao = new VacancyDaoImpl(conn);
+        boolean status = vacancyDao.insert(vacancy);
+
+        String msg = "";
+        if(status) {
+            msg = "The vacancy was saved correctly";
+        } else {
+            msg = "There was an error. The vacancy was not saved";
+        }
+        conn.disconnectDB();
+
+        req.setAttribute("message", msg);
+
+        RequestDispatcher requestDispatcher;
+        requestDispatcher = req.getRequestDispatcher("/mensaje.jsp");
+        requestDispatcher.forward(req, resp);
     }
 }

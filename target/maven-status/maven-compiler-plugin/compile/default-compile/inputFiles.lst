@@ -1,7 +1,8 @@
-/home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/model/Vacancy.java
-/home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/dao/VacancyDaoImpl.java
-/home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/dao/VacancyDao.java
-/home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/dao/ConnectDB.java
-/home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/controller/VacancyController.java
-/home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/dao/TestDB.java
-/home/nelson/dev/JavaEE/Projects/vacancies/src/main/java/model/Person.java
+/Users/madagaskar/dev/JavaEE/JavaEE-Vacancies-project/src/main/java/controller/VacancyController.java
+/Users/madagaskar/dev/JavaEE/JavaEE-Vacancies-project/src/main/java/dao/VacancyDaoImpl.java
+/Users/madagaskar/dev/JavaEE/JavaEE-Vacancies-project/src/main/java/controller/siteController.java
+/Users/madagaskar/dev/JavaEE/JavaEE-Vacancies-project/src/main/java/dao/TestDB.java
+/Users/madagaskar/dev/JavaEE/JavaEE-Vacancies-project/src/main/java/model/Person.java
+/Users/madagaskar/dev/JavaEE/JavaEE-Vacancies-project/src/main/java/model/Vacancy.java
+/Users/madagaskar/dev/JavaEE/JavaEE-Vacancies-project/src/main/java/dao/ConnectDB.java
+/Users/madagaskar/dev/JavaEE/JavaEE-Vacancies-project/src/main/java/dao/VacancyDao.java

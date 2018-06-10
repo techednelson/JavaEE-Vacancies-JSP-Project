@@ -10,8 +10,8 @@ public class ConnectDB {
         try {
             String password = "!@#321Nel";
             String user = "postgres";
-            String bd = "systemDB";
-            String url = "jdbc:postgresql://localhost:5432/" + bd;
+            String database = "systemDB";
+            String url = "jdbc:postgresql://localhost:5432/" + database;
             conn = DriverManager.getConnection(url, user, password);
 
             if (conn != null) {
