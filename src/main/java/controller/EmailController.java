@@ -1,5 +1,7 @@
 package controller;
 
+import services.Mail;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,23 +16,23 @@ public class EmailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String email = request.getParameter("destino");
-        String asunto = request.getParameter("asunto");
-        String mensaje = request.getParameter("mensaje");
+        String email = request.getParameter("destiny");
+        String asunto = request.getParameter("subject");
+        String mensaje = request.getParameter("message");
         String msg=null;
         HttpSession session = request.getSession();
         RequestDispatcher rd;
         try {
-            if (session.getAttribute("usuario") != null) {
-                // Clase para enviar un email a un usuario
+            if (session.getAttribute("person") != null) {
+
                 Mail mail = new Mail();
-                // Enviamos el correo
+
                 msg = mail.sendMail(email, asunto,mensaje);
                 request.setAttribute("message", msg);
-                rd = request.getRequestDispatcher("/mensaje_admin.jsp");
+                rd = request.getRequestDispatcher("/message_admin.jsp");
                 rd.forward(request, response);
             } else {
-                msg = "Usuario y/o password incorrectos";
+                msg = "User and/or password incorrect";
                 request.setAttribute("message", msg);
                 rd = request.getRequestDispatcher("/login.jsp");
                 rd.forward(request, response);

@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class Mail {
 
-    public String sendMail(String mailDestino, String Asunto, String Mensaje) {
+    public String sendMail(String mailDestiny, String subject, String msg) {
         String response = null;
         try {
 
@@ -27,11 +27,11 @@ public class Mail {
 
             message.setFrom(new InternetAddress("soporte.demo489@gmail.com"));
 
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailDestino));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailDestiny));
 
-            message.setSubject(Asunto);
+            message.setSubject(subject);
 
-            message.setText(Mensaje);
+            message.setText(message);
 
             Transport t = session.getTransport("smtp");
 
