@@ -1,6 +1,6 @@
 controller/AdminController.class
-controller/siteController.class
 controller/SearchController.class
+controller/siteController.class
 dao/PersonDao.class
 model/Person.class
 dao/VacancyDaoImpl.class

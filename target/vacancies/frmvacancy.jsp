@@ -9,12 +9,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/justified-nav.css" rel="stylesheet">
-    <!--
     <script src='tinymce/tinymce.min.js'></script>
     <script>
 
       tinymce.init({
-        selector: '#detalle',
+        selector: '#details',
         plugins: "textcolor, table",
         /* https://www.tinymce.com/docs/advanced/editor-control-identifiers/#toolbarcontrols */
         toolbar: "styleselect | undo redo | removeformat | bold italic underline | table \n\
@@ -23,7 +22,6 @@
       });
 
     </script>
-    -->
   </head>
 
   <body>
@@ -35,9 +33,9 @@
         <h3 class="text-muted">My Company - Administration</h3>
         <nav>
           <ul class="nav nav-justified">
-            <li><a href="#">Add vacancy</a></li>
-            <li><a href="#">Vacancies</a></li>
-            <li><a href="#">Exit</a></li>
+            <li><a href="admin?action=create">Add vacancy</a></li>
+            <li><a href="vacancy?action=list">Vacancies</a></li>
+            <li><a href="admin?action=logout">Exit</a></li>
           </ul>
         </nav>
       </div>

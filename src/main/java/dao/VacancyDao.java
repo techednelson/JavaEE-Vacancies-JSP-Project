@@ -15,4 +15,7 @@ public interface VacancyDao {
     List<Vacancy> getAll();
 
     List<Vacancy> getByQuery(String query);
+
+    int delete(int idVacancy);
+
 }

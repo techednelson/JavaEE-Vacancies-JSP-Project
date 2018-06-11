@@ -27,9 +27,9 @@
         <h3 class="text-muted">My Company</h3>
         <nav>
           <ul class="nav nav-justified">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Administration</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="homepage">Home</a></li>
+            <li><a href="admin?action=login">Administration</a></li>
+            <li><a href="about.jsp">About</a></li>
           </ul>
         </nav>
       </div>

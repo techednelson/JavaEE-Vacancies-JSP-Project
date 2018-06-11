@@ -25,8 +25,8 @@
         <h3 class="text-muted">My Company - Administration</h3>
         <nav>
           <ul class="nav nav-justified">
-            <li><a href="admin?action=crear">Add vacancy</a></li>
-            <li><a href="vacante?action=lista">Vacancies</a></li>
+            <li><a href="admin?action=create">Add vacancy</a></li>
+            <li><a href="vacancy?action=list">Vacancies</a></li>
             <li><a href="admin?action=logout">Exit</a></li>
           </ul>
         </nav>

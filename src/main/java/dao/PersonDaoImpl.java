@@ -28,7 +28,6 @@ public class PersonDaoImpl implements PersonDao {
                 person.setId(resultSet.getInt("id"));
                 person.setPersonName(resultSet.getString("person_name"));
                 person.setEmail(resultSet.getString("email"));
-                person.setPersonName(resultSet.getString("person_name"));
                 person.setUserName(resultSet.getString("username"));
                 person.setPassword(resultSet.getString("password"));
                 person.setProfile(resultSet.getString("profile"));

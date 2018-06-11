@@ -5,13 +5,13 @@ import java.util.Date;
 public class Vacancy {
 
     private int id;
-    private Date publishDate;
+    private Date date;
     private String vacancyName;
     private String description;
     private String details;
 
     public Vacancy(int id) {
-        this.publishDate = new Date();
+        this.date = new Date();
         this.id = id;
     }
 
@@ -19,9 +19,9 @@ public class Vacancy {
 
     public void setId(int id) { this.id = id; }
 
-    public Date getPublishDate() { return publishDate; }
+    public Date getDate() { return date; }
 
-    public void setPublishDate(Date publishDate) { this.publishDate = publishDate; }
+    public void setDate(Date date) { this.date = date; }
 
     public String getVacancyName() { return vacancyName; }
 
@@ -39,7 +39,7 @@ public class Vacancy {
     public java.lang.String toString() {
         return "Vacancy{" +
                 "id=" + id +
-                ", publishDate=" + publishDate +
+                ", date=" + date +
                 ", vacancyName='" + vacancyName + '\'' +
                 ", description='" + description + '\'' +
                 ", details='" + details + '\'' +

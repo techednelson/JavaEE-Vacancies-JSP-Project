@@ -86,7 +86,7 @@ public class VacancyController extends HttpServlet {
         req.setAttribute("message", msg);
 
         RequestDispatcher requestDispatcher;
-        requestDispatcher = req.getRequestDispatcher("/mensaje.jsp");
+        requestDispatcher = req.getRequestDispatcher("/message.jsp");
         requestDispatcher.forward(req, resp);
 
     }
