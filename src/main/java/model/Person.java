@@ -3,12 +3,21 @@ package model;
 public class Person {
     private int id;
     private String email;
+    private String personName;
     private String userName;
     private String password;
     private String profile;
     private String status = "active";
 
     public Person(int id) { this.id = id; }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
+
+    public String getPersonName() { return personName; }
+
+    public void setPersonName(String personName) { this.personName = personName; }
 
     public String getEmail() { return email; }
 
@@ -35,6 +44,7 @@ public class Person {
         return "Person{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", personName='" + personName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", profile='" + profile + '\'' +

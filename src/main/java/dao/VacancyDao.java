@@ -11,4 +11,8 @@ public interface VacancyDao {
     List<Vacancy> getRecent();
 
     Vacancy getById(int idVacancy);
+
+    List<Vacancy> getAll();
+
+    List<Vacancy> getByQuery(String query);
 }

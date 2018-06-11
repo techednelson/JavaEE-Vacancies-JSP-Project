@@ -40,6 +40,7 @@ public class VacancyDaoImpl implements VacancyDao {
 
             return false;
         }
+
     }
 
     @Override
@@ -65,13 +66,15 @@ public class VacancyDaoImpl implements VacancyDao {
             return list;
 
         } catch(SQLException e) {
-            System.out.println("Query failed: " + e.getMessage());
+            System.out.println("Query failed getRecent: " + e.getMessage());
             return null;
         }
+
     }
 
     @Override
     public Vacancy getById(int idVacancy) {
+
         try {
             String sql = "select * from vacancy where id = ? limit 1";
             PreparedStatement preparedStatement = conn.getConnectionDB().prepareStatement(sql);
@@ -93,7 +96,67 @@ public class VacancyDaoImpl implements VacancyDao {
             System.out.println("Query failed: " + e.getMessage());
             return null;
         }
+
     }
 
+    @Override
+    public List<Vacancy> getAll() {
+
+        try {
+            String sql = "select * from vacancy order by id desc";
+            PreparedStatement preparedStatement = conn.getConnectionDB().prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Vacancy> list = new LinkedList<>();
+            Vacancy vacancy;
+
+            while(resultSet.next()) {
+                vacancy = new Vacancy(resultSet.getInt("id"));
+                vacancy.setPublishDate(resultSet.getDate("publish_date"));
+                vacancy.setVacancyName(resultSet.getString("vacancy_name"));
+                vacancy.setDescription(resultSet.getString("description"));
+                vacancy.setDetails(resultSet.getString("details"));
+
+                list.add(vacancy);
+            }
+
+            return list;
+
+        } catch(SQLException e) {
+            System.out.println("Query failed getAll: " + e.getMessage());
+            return null;
+        }
+
+    }
+
+    @Override
+    public List<Vacancy> getByQuery(String query) {
+
+        try {
+            String sql = "select * from vacancy where (description like ? or vacancy_name like ?) order by id desc";
+            PreparedStatement preparedStatement = conn.getConnectionDB().prepareStatement(sql);
+            preparedStatement.setString(1, "%" + query + "%");
+            preparedStatement.setString(2, "%" + query + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Vacancy> list = new LinkedList<>();
+            Vacancy vacancy;
+
+            while(resultSet.next()) {
+                vacancy = new Vacancy(resultSet.getInt("id"));
+                vacancy.setPublishDate(resultSet.getDate("publish_date"));
+                vacancy.setVacancyName(resultSet.getString("vacancy_name"));
+                vacancy.setDescription(resultSet.getString("description"));
+                vacancy.setDetails(resultSet.getString("details"));
+
+                list.add(vacancy);
+            }
+
+            return list;
+
+        } catch(SQLException e) {
+            System.out.println("Query failed getRecent: " + e.getMessage());
+            return null;
+        }
+
+    }
 
 }

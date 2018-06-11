@@ -35,7 +35,7 @@
       </div>
 
       <!-- Formulario para la busqueda. El formulario es enviado por POST al BusquedaController -->
-      <form method ="post" action="#" class="navbar-form navbar-right">
+      <form method ="post" action="search" class="navbar-form navbar-right">
         <div class="form-group">
           <input type="text" name="query" required placeholder="Search offer..." class="form-control">
         </div>
@@ -55,7 +55,7 @@
           We will review your Cv and We will contact you back.
             <br><br>
 
-        <p><a class="btn btn-lg btn-success" href="#" role="button">See more offers</a></p>
+        <p><a class="btn btn-lg btn-success" href="vacancy?action=list" role="button">See more offers</a></p>
       </div>
 
       <h1>Recent Job offers</h1>
@@ -70,7 +70,7 @@
               <h2>${vacancy.id}</h2>
               <p class="text-danger text-justify">${vacancy.vacancyName}</p>
               <p class="text-justify">${vacancy.description}</p>
-              <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
+              <p><a class="btn btn-primary" href="vacancy?action=see&id=${vacancy.id}"" role="button">View details &raquo;</a></p>
             </div>
 
         </c:forEach>

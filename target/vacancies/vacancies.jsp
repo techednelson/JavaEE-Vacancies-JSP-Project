@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title>Human Resources Department - My Company</title>
+    <title>List with all the vacancies</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -33,48 +33,44 @@
           </ul>
         </nav>
       </div>
-
-      <!-- Formulario para la busqueda. El formulario es enviado por POST al BusquedaController -->
-      <form method ="post" action="search" class="navbar-form navbar-right">
+      <form method ="post" action="#" class="navbar-form navbar-right">
         <div class="form-group">
           <input type="text" name="query" required placeholder="Search offer..." class="form-control">
         </div>
         <button type="submit" class="btn btn-success">Search</button>
       </form>
+      <br><br><br>
 
-      <!-- Jumbotron -->
-      <div class="jumbotron">
-        <h2>FIND YOU IDEAL JOB!</h2>
-        <!--
-        <h4>WE ARE HIRING</h4>
-        -->
-        <p class="lead text-justify">Welcome to My Company, here you can find job offers that
-         match with your profile, experiences and location.
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><b>Vacancies List</b></h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="left">ID</th>
+                <th>Vacancy</th>
+                <th>Publication</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
 
-          it is very easy to use, just click one vacancy, log in to see the details and send us your CVin PDF or DOCX format.
-          We will review your Cv and We will contact you back.
-            <br><br>
-
-        <p><a class="btn btn-lg btn-success" href="vacancy?action=list" role="button">See more offers</a></p>
-      </div>
-
-      <h1>Recent Job offers</h1>
-
-     <!-- Example row of columns -->
-      <div class="row">
-
-
-        <c:forEach items = "${recent}" var = "vacancy" varStatus = "status">
-
-            <div class="col-lg-4">
-              <h2>${vacancy.id}</h2>
-              <p class="text-danger text-justify">${vacancy.vacancyName}</p>
-              <p class="text-justify">${vacancy.description}</p>
-              <p><a class="btn btn-primary" href="vacancy?action=see&id=${vacancy.id}"" role="button">View details &raquo;</a></p>
-            </div>
-
-        </c:forEach>
-
+                <c:forEach items="${vacancies}" var="vacancy">
+                <tr>
+                  <td class="left">${vacancy.id}</td>
+                  <td>${vacancy.vacancyName}</td>
+                  <td>${vacancy.publishDate}</td>
+                  <td>
+                    <a class="btn btn-default" href="vacancy?action=see&id=${vacancy.id}" role="button">View details</a>
+                    <a class="btn btn-default" href="#" role="button">Delete</a>
+                  </td>
+                </tr>
+                </c:forEach>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Site footer -->

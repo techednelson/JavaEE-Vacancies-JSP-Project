@@ -8,7 +8,7 @@ public class ConnectDB {
 
     public ConnectDB() {
         try {
-            String password = "!@#321Nel";
+            String password = " ";
             String user = "postgres";
             String database = "systemDB";
             String url = "jdbc:postgresql://localhost:5432/" + database;
