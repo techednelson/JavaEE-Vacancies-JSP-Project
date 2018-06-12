@@ -61,7 +61,7 @@
                 <tr>
                   <td class="left">${vacancy.id}</td>
                   <td>${vacancy.vacancyName}</td>
-                  <td>${vacancy.publishDate}</td>
+                  <td>${vacancy.date}</td>
                   <td>
                     <a class="btn btn-default" href="vacancy?action=see&id=${vacancy.id}" role="button">View details</a>
                     <c:if test="${person.id >= 0}">

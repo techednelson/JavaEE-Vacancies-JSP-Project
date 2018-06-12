@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title>Human Resources Department - My Company</title>
+    <title>System Administration</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -22,38 +25,21 @@
         <h3 class="text-muted">My Company - Administration</h3>
         <nav>
           <ul class="nav nav-justified">
-            <li><a href="admin?action=crear">Add vacancy</a></li>
+            <li><a href="admin?action=create">Add vacancy</a></li>
             <li><a href="vacancy?action=list">Vacancies</a></li>
             <li><a href="application?action=applications">Applications</a></li>
             <li><a href="admin?action=logout">Exit</a></li>
           </ul>
         </nav>
       </div>
-
       <br>
-      <div class="panel panel-info">
+
+      <div class="panel panel-primary">
         <div class="panel-heading">
-          <h3 class="panel-title">Reply by Email</h3>
+          <h3 class="panel-title">System</h3>
         </div>
         <div class="panel-body">
-
-          <p class="text-danger">${message}</p>
-
-          <form action="email" method="post">
-            <div class="form-group">
-              <label for="destiny">Destination</label>
-              <input type="text" class="form-control" name="destiny" readonly id="destiny" value="${email}" >
-            </div>
-            <div class="form-group">
-              <label for="subject">Asunto</label>
-              <input type="text" class="form-control" name="subject" required id="subject" placeholder="Email subject">
-            </div>
-            <div class="form-group">
-              <label for="message">Mensaje</label>
-              <textarea class="form-control" name="message" id="message" required rows="3" placeholder="Enter the E-Mail body"></textarea>
-            </div>
-            <button type="submit" class="btn btn-default" >Enviar correo</button>
-          </form>
+            <h4>${message}</h4>
         </div>
       </div>
 

@@ -1,180 +1,143 @@
 package controller;
 
+import dao.*;
+import model.Application;
+import model.Vacancy;
 import services.Utility;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
-public class ApplicationController {
+@WebServlet(name = "ApplicationController", urlPatterns = {"/application"})
+public class ApplicationController extends HttpServlet {
+
+    private static final String UPLOAD_DIR = "uploads";
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        // Recibimos los campos de tipo texto
-        String nombreParam = request.getParameter("nombre");
-        String emailParam = request.getParameter("email");
-        String telefonoParam = request.getParameter("telefono");
-        String direccionParam = request.getParameter("direccion");
-        // Este parametro idVacante es el que viene en la URL del boton "Enviar CV"
-        // vacante?action=enviarCV&id=${vacante.id}
-        // Lo vamos a ocupar para insertarlo en la tabla Solicitud, ya que ocupamos el idVacante (Foreign key)
-        int idVacanteParam = Integer.parseInt(request.getParameter("idVacante"));
 
-        // Creamos el objeto que guardaremos
-        Solicitud solicitud = new Solicitud(0);
-        solicitud.setFecha(new Date());
-        solicitud.setNombre(nombreParam);
-        solicitud.setEmail(emailParam);
-        solicitud.setTelefono(telefonoParam);
-        solicitud.setDireccion(direccionParam);
-        DbConnection conn = new DbConnection();
-        VacanteDao vacanteDao = new VacanteDao(conn);
-        // Buscamos el objeto Vacante, por medio del paramtro idVacante que viene del boton "Enviar CV"
-        Vacante vacante = vacanteDao.getById(idVacanteParam);
-        //Inyeccion del objeto Vacante a la solicitud (Foreign Key)
-        solicitud.setVacante(vacante);
+        String nameParam = req.getParameter("name");
+        String emailParam = req.getParameter("email");
+        String phoneParam = req.getParameter("phone");
+        String addressParam = req.getParameter("address");
+        int idVacancyParam = 0;
 
-        // gets absolute path of the web application
-        String applicationPath = request.getServletContext().getRealPath("");
-        // constructs path of the directory to save uploaded file
+        if(req.getParameter("idVacancy") != null) {
+           idVacancyParam = Integer.parseInt(req.getParameter("idVacancy"));
+        }
+
+        Application application = new Application(0);
+        application.setDate(new Date());
+        application.setName(nameParam);
+        application.setEmail(emailParam);
+        application.setPhone(phoneParam);
+        application.setAddress(addressParam);
+        ConnectDB conn = new ConnectDB();
+        VacancyDao vacancyDao = new VacancyDaoImpl(conn);
+
+        Vacancy vacancy = vacancyDao.getById(idVacancyParam);
+
+        application.setVacancy(vacancy);
+
+
+        String applicationPath = req.getServletContext().getRealPath("");
+
         String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
-        /*
-        La clase Part, representa un archivo fisico que subio el usuario. Este nombre "archivo" debe ser el especificado
-        en el formulario HTML para input de tipo file
-            <input type="file" required id="archivo" name="archivo">
-        */
-        Part archivo = request.getPart("archivo");
-        String archivoParam = archivo.getSubmittedFileName();
-        RequestDispatcher rd;
-        //Archivo valido, si lo guardamos
-        String msg="";
-        if (archivoParam.endsWith("pdf") || archivoParam.endsWith("doc") || archivoParam.endsWith("docx")) {
 
-            /**
-             * El nombre del archivo que guardaremos sera como sigue:
-             *  1. Generamos una cadena de 10 caractereas aleatorios apoyandonos de la clase Utility.randomAlphaNumeric
-             *  2. Posteriomente, al nombre del archivo "archivoParam", le hacemos un reemplazo de cualquier caracter de espacio
-             *  por guiones. Suponiendo que el archivo que subio el usuario se llama "curriculum vitae.doc", con este procedimiento quedara
-             *  por ejemplo   "O8PJYTTPJ7curriculum-vitae.doc"
-             *  Ese sera el nombre del archiivo que guardaremos en la BD.
-             *  Con esto nos aseguramos de que nunca se reemplazaran.
-             */
+        Part file = req.getPart("file");
+        String fileParam = file.getSubmittedFileName();
+        RequestDispatcher requestDispatcher;
 
-            String archivoFisico = Utility.randomAlphaNumeric(10) + archivoParam.replace(" ", "_");
-            // Asignamos el nombre del archivo que guadaremos en la bd
-            solicitud.setArchivo(archivoFisico);
+        String msg;
+        if (fileParam.endsWith("pdf") || fileParam.endsWith("doc") || fileParam.endsWith("docx")) {
 
-            SolicitudDao solicitudDao = new SolicitudDao(conn);
-            solicitudDao.insert(solicitud);
-            conn.disconnect();
-            msg = "<b>" + solicitud.getNombre() + "</b> hemos recibido tus datos."
-                    + "<br> Revisaremos tu CV y nos comunicaremos contigo.<br><br>Gracias.";
-            request.setAttribute("message", msg);
+            String fileUpload = Utility.randomAlphaNumeric(10) + fileParam.replace(" ", "_");
 
-            // Escribimos el archivo al disco duro del servidor
-            // Aqui se guarda el archivo al directorio webapps/vacantesV2/uploads con el nombre formado anteriormente
-            archivo.write(uploadFilePath + File.separator + archivoFisico);
-            rd = request.getRequestDispatcher("/mensaje_guest.jsp");
-            rd.forward(request, response);
-        } else { // No es un archivo valido...
+            application.setFile(fileUpload);
 
-            msg = "Solo se permiten archivos de tipo PDF, DOC y DOCX";
-            request.setAttribute("message", msg);
-            /**
-             * Si subio otro tipo de archivo, no lo permitimos.
-             * Aqui lo que hacemos es compartir el JavaBean solicitud que en este punto ya esta completo con lo que capturo
-             * el usuario. Aqui hacemos una redireccion a la vista frm_cv.jsp que es la vista donde el usuario captura su nombre,
-             * correo, direccion, telefono. Entonces como estamos regresando el Javabean solicitud a la vista, no tendra que capturar de nuevo su
-             * nombre, correo, direccion, telefono, ya que al estar disponible este Javabean, mostramos los valores de cada propiedad en
-             * cada input del formulario por ejemplo. <input type="text" class="form-control" name="nombre" value="${solicitud.nombre}" required id="nombre">
-             * De esta forma el formulario quedara lleno con lo que habia capturado el usuario anteriomente y solo tendra que volver a subir otro archivo.
-             */
-            request.setAttribute("solicitud", solicitud);
-            /**
-             * Tambien regresamos a la vista frm_cv.jsp el Javabean vacante, porque lo ocupamos para indicar el valor de la idVacante para la cual
-             * esta aplicando el usuario. Esto lo hacemos en <input type="hidden" value="${vacante.id}" name="idVacante">
-             */
-            request.setAttribute("vacante", solicitud.getVacante());
-            rd = request.getRequestDispatcher("/frm_cv.jsp");
-            rd.forward(request, response);
+            ApplicationDao applicationDao = new ApplicationDaoImpl(conn);
+            applicationDao.insert(application);
+            conn.disconnectDB();
+            msg = "<b>" + application.getName() + "</b> We have receive your CV."
+                    + "<br> We will contact you as soon as possible.<br><br>Thanks.";
+            req.setAttribute("message", msg);
+
+            file.write(uploadFilePath + File.separator + fileUpload);
+            requestDispatcher = req.getRequestDispatcher("/message_guest.jsp");
+            requestDispatcher.forward(req, resp);
+        } else {
+
+            msg = "PDF, DOC y DOCX files allowed only";
+            req.setAttribute("message", msg);
+
+            req.setAttribute("application", application);
+
+            req.setAttribute("vacancy", application.getVacancy());
+            requestDispatcher = req.getRequestDispatcher("/frm_cv.jsp");
+            requestDispatcher.forward(req, resp);
         }
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Recibimos el parametro action, el cual servira para saber que accion GET se ejecutara
-        String action = request.getParameter("action");
-        // Recuperamos la session activa que viene junto con el request
-        HttpSession session = request.getSession();
-        RequestDispatcher rd;
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String action = req.getParameter("action");
+
+        HttpSession session = req.getSession();
+        RequestDispatcher requestDispatcher;
         switch (action) {
-            case "solicitudes":
-                if (session.getAttribute("usuario") == null) {
-                    rd = request.getRequestDispatcher("/login.jsp");
-                    rd.forward(request, response);
+            case "applications":
+                if (session.getAttribute("person") == null) {
+                    requestDispatcher = req.getRequestDispatcher("/login.jsp");
+                    requestDispatcher.forward(req, resp);
                 } else {
-                    this.verSolicitudes(request, response);
+                    this.seeApplications(req, resp);
                 }
                 break;
-            case "responder":
-                if (session.getAttribute("usuario") == null) {
-                    rd = request.getRequestDispatcher("/login.jsp");
-                    rd.forward(request, response);
+            case "respond":
+                if (session.getAttribute("person") == null) {
+                    requestDispatcher = req.getRequestDispatcher("/login.jsp");
+                    requestDispatcher.forward(req, resp);
                 } else {
-                    this.responder(request, response);
+                    this.respond(req, resp);
                 }
                 break;
         }
 
     }
 
-    /**
-     * Metodo que se ejecuta, si el parametro action, es solicitudes
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void verSolicitudes(HttpServletRequest request, HttpServletResponse response)
+    protected void seeApplications(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        RequestDispatcher rd;
+        RequestDispatcher requestDispatcher;
         String msg = null;
-        List<Solicitud> lista = null;
-        DbConnection conn = new DbConnection();
-        SolicitudDao solicitudDao = new SolicitudDao(conn);
-        lista = solicitudDao.getAll();
-        conn.disconnect();
+        List<Application> list;
+        ConnectDB conn = new ConnectDB();
+        ApplicationDao applicationDao = new ApplicationDaoImpl(conn);
+        list = applicationDao.getAll();
+        conn.disconnectDB();
 
-        request.setAttribute("message", msg);
-        request.setAttribute("solicitudes", lista);
-        rd = request.getRequestDispatcher("/solicitudes.jsp");
-        rd.forward(request, response);
+        req.setAttribute("message", msg);
+        req.setAttribute("applications", list);
+        requestDispatcher = req.getRequestDispatcher("/applications.jsp");
+        requestDispatcher.forward(req, resp);
     }
 
-    /**
-     * Metodo que se ejecuta, si el action es responder
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void responder(HttpServletRequest request, HttpServletResponse response)
+    protected void respond(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        RequestDispatcher rd;
-        request.setAttribute("email", email);
-        // Hacemos un render del formulario para enviar el email
-        rd = request.getRequestDispatcher("/email.jsp");
-        rd.forward(request, response);
+        String email = req.getParameter("email");
+        RequestDispatcher requestDispatcher;
+        req.setAttribute("email", email);
+
+        requestDispatcher = req.getRequestDispatcher("/email.jsp");
+        requestDispatcher.forward(req, resp);
     }
 
 

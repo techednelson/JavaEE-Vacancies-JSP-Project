@@ -1,14 +1,17 @@
 package services;
 
-import sun.plugin2.message.Message;
-import sun.plugin2.message.transport.Transport;
-
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+
 
 public class Mail {
 
     public String sendMail(String mailDestiny, String subject, String msg) {
-        String response = null;
+        String response;
         try {
 
             Properties props = new Properties();
@@ -31,7 +34,7 @@ public class Mail {
 
             message.setSubject(subject);
 
-            message.setText(message);
+            message.setText(String.valueOf(message));
 
             Transport t = session.getTransport("smtp");
 
@@ -39,7 +42,7 @@ public class Mail {
             t.sendMessage(message, message.getAllRecipients());
 
             t.close();
-            response = "El correo electrónico fue enviado correctamente.";
+            response = "E-mail was sent correctly.";
 
             return response;
 

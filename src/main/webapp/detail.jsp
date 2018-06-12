@@ -45,11 +45,12 @@
         </div>
         <div class="panel-body">
           <h5><b>Vacancy: </b>${vacancy.vacancyName}</h5>
-          <h5><b>Publication</b>${vacancy.publishDate}</h5>
+          <h5><b>Publication</b>${vacancy.date}</h5>
           <b>Description: </b><br>
           <p class="text-justify">${vacancy.description}</p>
           <b>Vacancy details</b>:<br>
           ${vacancy.details}
+           <p><a class="btn btn-default btn-success" title="Send CV to apply for this vacancy." href="vacancy?action=sendCV&id=${vacancy.id}" role="button">Send CV</a></p>
         </div>
       </div>
       <!-- Site footer -->

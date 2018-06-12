@@ -34,13 +34,8 @@
 
       <!-- Jumbotron -->
       <div class="jumbotron">
-        <h2>ACERCA</h2>
-        <p class="lead text-justify">Si tu compraste el curso <a href='#'>Desarrollo de aplicaciones web con Java EE - Servlets y JSP </a>
-          tu aprenderás a desarrollar esta aplicación paso a paso completamente desde cero. Todo el código fuente y la documentación
-          estará disponible para que la puedas utilizarla en tus propios proyectos.
-          Cualquier duda o comentario puedes enviarme un correo electrónico.<br> <br>
-          <b>Autor</b>: MIS Iván E. Tinajero Díaz<br>
-          <b>Email</b>: ivanetinajero@gmail.com
+        <h2>ABOUT</h2>
+        <p class="lead text-justify"><br> <br>
         <p>
       </div>
 

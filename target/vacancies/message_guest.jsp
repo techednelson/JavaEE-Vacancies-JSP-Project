@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title>My Company - Acerca</title>
+    <title>System Administration</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -22,22 +22,30 @@
       <!-- The justified navigation menu is meant for single line per list item.
            Multiple lines will require custom code not provided by Bootstrap. -->
       <div class="masthead">
-        <h3 class="text-muted">My Company</h3>
+        <h3 class="text-muted">My Company - Administration</h3>
         <nav>
           <ul class="nav nav-justified">
             <li><a href="homepage">Home</a></li>
             <li><a href="admin?action=login">Administration</a></li>
-            <li><a href="about.jsp">About</a></li>
+            <li><a href="About.jsp">About</a></li>
           </ul>
         </nav>
       </div>
+      <br>
 
-      <!-- Jumbotron -->
-      <div class="jumbotron">
-        <h2>ABOUT</h2>
-        <p class="lead text-justify"><br> <br>
-        <p>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">System</h3>
+        </div>
+        <div class="panel-body">
+            <h4>${message}</h4>
+        </div>
       </div>
+
+      <!-- Site footer -->
+      <footer class="footer">
+        <p>&copy; 2018 My Company, Inc.</p>
+      </footer>
 
     </div> <!-- /container -->
 

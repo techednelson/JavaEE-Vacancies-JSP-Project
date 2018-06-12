@@ -24,6 +24,8 @@ public class VacancyController extends HttpServlet {
            this.seeDetails(req, resp);
        } else if(action.equals("list")) {
            this.seeAll(req, resp);
+       } else if("sendCV".equals(action)) {
+           this.showForm(req, resp);
        }
     }
 
@@ -75,7 +77,7 @@ public class VacancyController extends HttpServlet {
         VacancyDao vacancyDao = new VacancyDaoImpl(conn);
         boolean status = vacancyDao.insert(vacancy);
 
-        String msg = "";
+        String msg;
         if(status) {
             msg = "The vacancy was saved correctly";
         } else {
@@ -86,8 +88,23 @@ public class VacancyController extends HttpServlet {
         req.setAttribute("message", msg);
 
         RequestDispatcher requestDispatcher;
-        requestDispatcher = req.getRequestDispatcher("/message.jsp");
+        requestDispatcher = req.getRequestDispatcher("/message_admin.jsp");
         requestDispatcher.forward(req, resp);
 
     }
+
+    protected void showForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int idVacancy = Integer.parseInt(req.getParameter("id"));
+        Vacancy vacancy;
+        ConnectDB conn = new ConnectDB();
+        VacancyDao vacancyDao = new VacancyDaoImpl(conn);
+        vacancy = vacancyDao.getById(idVacancy);
+        conn.disconnectDB();
+        req.setAttribute("vacancy", vacancy);
+        RequestDispatcher requestDispatcher;
+        requestDispatcher = req.getRequestDispatcher("/frm_cv.jsp");
+        requestDispatcher.forward(req, resp);
+    }
+
+
 }
